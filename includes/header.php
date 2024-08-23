@@ -1,33 +1,23 @@
-<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-        <a class="navbar-brand ps-5" href="index.php"><img src="images/proFormation.png" width="120" height="30"
-                alt=""></a>
-       
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
-                <a class="nav-item nav-link active" href="/index.php">Accueil <span class="sr-only">(current)</span></a>
-                <a class="nav-item nav-link" href="#">contact</a>
-                <a class="nav-item nav-link" href="#">blog</a>
-            </div>
-        </div>
+<!DOCTYPE html>
+<html lang="fr">
 
+<!--header-->
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>WebCMS</title>
+    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
+    <link href="admin/css/styles.css" rel="stylesheet" />
 
-        <!-- Navbar-->
-        <!--Right menu -->
+    <!-- Ajouter les deux liens suivants vers les feuilles de style de l'espace public -->
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="css/blog-home.css" rel="stylesheet">
 
-        <ul class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown"
-                    aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
-                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                  
-                    <li><a class="dropdown-item" href="#!">Settings</a></li>
-                    <li><a class="dropdown-item" href="#!">Activity Log</a></li>
-                    <li>
-                        <hr class="dropdown-divider" />
-                    </li>
-                    <li><a class="dropdown-item" href="#!">Logout</a></li>
+    <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+</head>
 
-                </ul>
-            </li>
-        </ul>
-    </nav>
