@@ -1,6 +1,6 @@
 <body class="sb-nav-fixed">
 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-        <a class="navbar-brand ps-5" href="index.php"><img src="images/proFormation.png" width="120" height="30"
+        <a class="navbar-brand ps-5" href="index.php"><img src="img/skilldeve.png" width="120" height="30"
                 alt=""></a>
        
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
