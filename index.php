@@ -42,10 +42,10 @@
                 <!-- Pager -->
                 <ul class="pager">
                     <li class="previous">
-                        <a href="#">&larr; Older</a>
+                        <a href="#">&larr; Precedent</a>
                     </li>
                     <li class="next">
-                        <a href="#">Newer &rarr;</a>
+                        <a href="#">suivants &rarr;</a>
                     </li>
                 </ul>
 
