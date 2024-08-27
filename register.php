@@ -1,4 +1,4 @@
-<?php require_once "header_register.php"; ?>
+<?php require_once "includes/header_register.php"; ?>
 
     <body class="bg-primary">
         <div id="layoutAuthentication">
@@ -26,30 +26,30 @@
                                                 </div>
                                             </div>
                                             <div class="form-floating mb-3">
-                                                <input class="form-control" id="inputEmail" type="email" placeholder="name@example.com" />
+                                                <input class="form-control" id="inputEmail" type="email"  name="email" />
                                                 <label for="inputEmail">adresse mail</label>
                                             </div>
                                             <div class="row mb-3">
                                                 <div class="col-md-6">
                                                     <div class="form-floating mb-3 mb-md-0">
-                                                        <input class="form-control" id="inputPassword" type="password" placeholder="Create a password" />
+                                                        <input class="form-control" id="inputPassword" type="password" name="password" />
                                                         <label for="inputPassword">Mot de passe</label>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-floating mb-3 mb-md-0">
-                                                        <input class="form-control" id="inputPasswordConfirm" type="password" placeholder="Confirm password" />
+                                                        <input class="form-control" id="inputPasswordConfirm" type="password" name="confirm_password" />
                                                         <label for="inputPasswordConfirm">Confirmation de mot de passe</label>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="mt-4 mb-0">
-                                                <div class="d-grid"><a class="btn btn-primary btn-block" href="login.html">Create Account</a></div>
+                                                <div class="d-grid"><input type="submit"  name="inscriptio" value="Créer un compte" class="btn btn-primary btn-block" href="login.html"></div>
                                             </div>
                                         </form>
                                     </div>
                                     <div class="card-footer text-center py-3">
-                                        <div class="small"><a href="login.html">Have an account? Go to login</a></div>
+                                        <div class="small"><a href="login.html">Vous avez un compte? Connecter vous</a></div>
                                     </div>
                                 </div>
                             </div>
@@ -58,5 +58,5 @@
                 </main>
             </div>
 
-            <?php require_once "includes/footet.php"; ?>
+            <?php require_once "includes/footer.php"; ?>
 
