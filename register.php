@@ -43,6 +43,21 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class="row mb-3">
+                                                <div class="col-md-6">
+                                                    <div class="form-floating mb-3 mb-md-0">
+                                                        <input class="form-control" id="inputFirstName" type="text" name="username"/>
+                                                        <label for="inputFirstName">Nom d'utilisateur</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-floating">
+                                                        <input type="hidden" name="photo" />
+                                                        <input type="file" id="photo" value=" />
+                                                        <label for="photo"></label>
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <div class="mt-4 mb-0">
                                                 <div class="d-grid"><input type="submit"  name="inscriptio" value="Créer un compte" class="btn btn-primary btn-block" href="login.html"></div>
                                             </div>
