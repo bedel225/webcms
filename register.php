@@ -51,10 +51,10 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <div class="form-floating">
-                                                        <input type="hidden" name="photo" />
-                                                        <input type="file" id="photo" value=" />
-                                                        <label for="photo"></label>
+                                                    <div >
+                                                        <label for="photo">Photo de profil</label>
+                                                        <input type="hidden" name="MAX_FILLE_SIZE" value="1000000" />
+                                                        <input type="file" id="photo"/>
                                                     </div>
                                                 </div>
                                             </div>
