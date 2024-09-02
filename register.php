@@ -10,7 +10,7 @@
                                 <div class="card shadow-lg border-0 rounded-lg mt-5">
                                     <div class="card-header"><h3 class="text-center font-weight-light my-4">Créer un compte</h3></div>
                                     <div class="card-body">
-                                        <form action=""  method = "post" enctype="multipart/form-data">
+                                        <form action="register.php"  method = "post" enctype="multipart/form-data">
                                             <div class="row mb-3">
                                                 <div class="col-md-6">
                                                     <div class="form-floating mb-3 mb-md-0">
@@ -59,7 +59,7 @@
                                                 </div>
                                             </div>
                                             <div class="mt-4 mb-0">
-                                                <div class="d-grid"><input type="submit"  name="inscriptio" value="Créer un compte" class="btn btn-primary btn-block" href="login.html"></div>
+                                                <div class="d-grid"><input type="submit"  name="inscription" value="Créer un compte" class="btn btn-primary btn-block" href="login.html"></div>
                                             </div>
                                         </form>
                                     </div>
@@ -72,6 +72,26 @@
                     </div>
                 </main>
             </div>
+<?php
 
+if(isset($_POST['inscription'])){
+    if(isset($_POST['nom']) || preg_match('/[a-zA-Z]+/', $_POST['nom'])) {
+        $message = 'le nom doit comprendre uniquement des lettres';    
+    }elseif(isset($_POST['prenom']) || preg_match('/[a-zA-Z]+/', $_POST['prenom'])) {
+        $message = 'le prenom doit comprendre uniquement des lettres';     
+    }elseif(isset($_POST['email']) || preg_match('/[a-zA-Z]+/', $_POST['email'])) {
+        $message = 'le mail doit comprendre uniquement des lettres';    
+    }
+    echo $message;
+}
+
+
+
+
+
+
+
+
+?>
             <?php require_once "includes/footer.php"; ?>
 
