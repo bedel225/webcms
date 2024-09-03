@@ -75,13 +75,18 @@
 <?php
 
 if(isset($_POST['inscription'])){
-    if(isset($_POST['nom']) || preg_match('/[a-zA-Z]+/', $_POST['nom'])) {
+    if(empty($_POST['nom']) || preg_match('/[a-zA-Z]+/', $_POST['nom'])) {
         $message = 'le nom doit comprendre uniquement des lettres';    
-    }elseif(isset($_POST['prenom']) || preg_match('/[a-zA-Z]+/', $_POST['prenom'])) {
+    }elseif(empty($_POST['prenom']) || preg_match('/[a-zA-Z]+/', $_POST['prenom'])) {
         $message = 'le prenom doit comprendre uniquement des lettres';     
-    }elseif(isset($_POST['email']) || preg_match('/[a-zA-Z]+/', $_POST['email'])) {
+    }elseif(empty($_POST['email']) || preg_match('/[a-zA-Z]+/', $_POST['email'])) {
         $message = 'le mail doit comprendre uniquement des lettres';    
+    }elseif(empty($_POST['password']) || $_POST['password'] != $_POST['confirm_password']) {
+        $message = 'saisisser un mot de passe valide.';    
+    }else{
+        $message = 'vous etes bien connecté.';
     }
+    
     echo $message;
 }
 
