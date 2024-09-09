@@ -1,5 +1,46 @@
 <?php require_once "includes/header_register.php"; ?>
+<?php
 
+if(isset($_POST['inscription'])){
+    if(empty($_POST['prenom']) || !preg_match('/[a-zA-Z]+/', $_POST['prenom'])) {
+        $message = 'votre prenom doit être une chaine de caractere alphabetique!';   
+    }elseif(empty($_POST['nom']) || !preg_match('/[a-zA-Z]+/', $_POST['nom'])) {
+        $message = 'votre nom doit être une chaine de caractere alphabetique!';      
+    }elseif(empty($_POST['email']) || !filter_var($_POST['email'])) {
+        $message = 'Entrer une adresse email valide';    
+    }elseif(empty($_POST['username']) || !preg_match('/[a-zA-Z0-9]+/', $_POST['username'])) {
+        $message = 'votre username doit être une chaine de caractere alphabetique!';    
+    }elseif(empty($_POST['password']) || $_POST['password'] != $_POST['confirm_password']) {
+        $message = 'saisisser un mot de passe valide.';    
+    }else{
+        
+        require_once "includes/bdd.php";
+        $requete = $BDDpdo->prepare('INSERT INTO utilisateurs(nom_utilisateur, prenom_utilisateur, username, email_utilisateur,
+        password_utilisateur, token_utilisateur, photo_utilisateur) VALUES (:nom, :prenom, :username, :email, :password, :token, :photo_profil)');
+        $requete->bindvalue(':nom', $_POST['nom']);
+        $requete->bindvalue('prenom', $_POST['prenom']);
+        $requete->bindvalue('username', $_POST['username']);
+        $requete->bindvalue('email', $_POST['email']);
+        $requete->bindvalue('password', $_POST['password']);
+        $requete->bindvalue('token', "aaaa");
+        
+        if(empty($_FILES['photo_profil']['name'])){
+            $photo_profil = 'avata_default.png';
+            $requete->bindvalue(':photo_profil', $photo_profil);
+        }else{
+            if(preg_match("#jpeg|png|jpg#",$_FILES['photo_profil']['type'])){
+                $path = "img/photo_profil";
+                move_uploaded_file($_FILES['photo_profil']['tmp_name'],$path.$_FILES['photo_profil']['tmp_name']);
+            }else{
+                $message = 'la photo doit etre de type jpg, jpeg, png';
+            }
+            $requete->bindvalue(':photo_profil', $_POST['photo_profil']['name']);
+        }
+        $requete->execute();
+    }
+}
+
+?>
     <body class="bg-primary">
         <div id="layoutAuthentication">
             <div id="layoutAuthentication_content">
@@ -8,7 +49,12 @@
                         <div class="row justify-content-center">
                             <div class="col-lg-8">
                                 <div class="card shadow-lg border-0 rounded-lg mt-5">
-                                    <div class="card-header"><h3 class="text-center font-weight-light my-4">Créer un compte</h3></div>
+                                    <div class="card-header">
+                                        <?php if(isset($message)){
+                                            echo $message;
+                                        }
+                                        ?>
+                                        <h3 class="text-center font-weight-light my-4">Créer un compte</h3></div>
                                     <div class="card-body">
                                         <form action="register.php"  method = "post" enctype="multipart/form-data">
                                             <div class="row mb-3">
@@ -54,7 +100,7 @@
                                                     <div >
                                                         <label for="photo">Photo de profil</label>
                                                         <input type="hidden" name="MAX_FILLE_SIZE" value="1000000" />
-                                                        <input type="file" id="photo"/>
+                                                        <input type="file" id="photo" name="photo_profil"/>
                                                     </div>
                                                 </div>
                                             </div>
@@ -72,31 +118,9 @@
                     </div>
                 </main>
             </div>
-<?php
-
-if(isset($_POST['inscription'])){
-    if(empty($_POST['nom']) || preg_match('/[a-zA-Z]+/', $_POST['nom'])) {
-        $message = 'le nom doit comprendre uniquement des lettres';    
-    }elseif(empty($_POST['prenom']) || preg_match('/[a-zA-Z]+/', $_POST['prenom'])) {
-        $message = 'le prenom doit comprendre uniquement des lettres';     
-    }elseif(empty($_POST['email']) || preg_match('/[a-zA-Z]+/', $_POST['email'])) {
-        $message = 'le mail doit comprendre uniquement des lettres';    
-    }elseif(empty($_POST['password']) || $_POST['password'] != $_POST['confirm_password']) {
-        $message = 'saisisser un mot de passe valide.';    
-    }else{
-        $message = 'vous etes bien connecté.';
-    }
-    
-    echo $message;
-}
 
 
 
 
-
-
-
-
-?>
             <?php require_once "includes/footer.php"; ?>
 
