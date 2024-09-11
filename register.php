@@ -22,7 +22,7 @@ if(isset($_POST['inscription'])){
         $requete->bindvalue('username', $_POST['username']);
         $requete->bindvalue('email', $_POST['email']);
         $requete->bindvalue('password', $_POST['password']);
-        $requete->bindvalue('token', "aaaa");
+        $requete->bindvalue('token', "token to define");
         
         if(empty($_FILES['photo_profil']['name'])){
             $photo_profil = 'avata_default.png';
