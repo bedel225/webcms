@@ -2,13 +2,13 @@
 <?php
 
 if(isset($_POST['inscription'])){
-    if(empty($_POST['prenom']) || !preg_match('/[a-zA-Z]+/', $_POST['prenom'])) {
+    if(empty($_POST['prenom']) || !ctype_alpha($_POST['prenom']) ) {
         $message = 'votre prenom doit être une chaine de caractere alphabetique!';   
-    }elseif(empty($_POST['nom']) || !preg_match('/[a-zA-Z]+/', $_POST['nom'])) {
+    }elseif(empty($_POST['nom']) || !ctype_alpha($_POST['nom'])) {
         $message = 'votre nom doit être une chaine de caractere alphabetique!';      
     }elseif(empty($_POST['email']) || !filter_var($_POST['email'])) {
         $message = 'Entrer une adresse email valide';    
-    }elseif(empty($_POST['username']) || !preg_match('/[a-zA-Z0-9]+/', $_POST['username'])) {
+    }elseif(empty($_POST['username']) || !ctype_alpha($_POST['username'])) {
         $message = 'votre username doit être une chaine de caractere alphabetique!';    
     }elseif(empty($_POST['password']) || $_POST['password'] != $_POST['confirm_password']) {
         $message = 'saisisser un mot de passe valide.';    
