@@ -1,5 +1,4 @@
-<?php require_once "includes/header_register.php"; ?>
-<?php
+<?php require_once "includes/header_register.php"; 
 
 if(isset($_POST['inscription'])){
     if(empty($_POST['prenom']) || !ctype_alpha($_POST['prenom']) ) {
@@ -9,34 +8,61 @@ if(isset($_POST['inscription'])){
     }elseif(empty($_POST['email']) || !filter_var($_POST['email'])) {
         $message = 'Entrer une adresse email valide';    
     }elseif(empty($_POST['username']) || !ctype_alpha($_POST['username'])) {
-        $message = 'votre username doit être une chaine de caractere alphabetique!';    
+        $message = 'votre nom d\'utilisateur doit être une chaine de caractere alphabetique!';    
     }elseif(empty($_POST['password']) || $_POST['password'] != $_POST['confirm_password']) {
         $message = 'saisisser un mot de passe valide.';    
     }else{
-        
         require_once "includes/bdd.php";
-        $requete = $BDDpdo->prepare('INSERT INTO utilisateurs(nom_utilisateur, prenom_utilisateur, username, email_utilisateur,
-        password_utilisateur, token_utilisateur, photo_utilisateur) VALUES (:nom, :prenom, :username, :email, :password, :token, :photo_profil)');
-        $requete->bindvalue(':nom', $_POST['nom']);
-        $requete->bindvalue('prenom', $_POST['prenom']);
-        $requete->bindvalue('username', $_POST['username']);
-        $requete->bindvalue('email', $_POST['email']);
-        $requete->bindvalue('password', $_POST['password']);
-        $requete->bindvalue('token', "token to define");
-        
-        if(empty($_FILES['photo_profil']['name'])){
-            $photo_profil = 'avata_default.png';
-            $requete->bindvalue(':photo_profil', $photo_profil);
+
+
+        $requete_verification_email = $BDDpdo->prepare('SELECT * FROM utilisateurs WHERE email_utilisateur = :email');
+        $requete_verification_email->bindvalue('email', $_POST['email']);
+        $requete_verification_email->execute();
+        $same_email = $requete_verification_email->fetch();
+
+        $requete_verification_username = $BDDpdo->prepare('SELECT * FROM utilisateurs WHERE username = :username');
+        $requete_verification_username->bindvalue('username', $_POST['username']);
+        $requete_verification_username->execute();
+        $same_username = $requete_verification_username->fetch();
+       
+
+        if(isset($same_email) && !empty($same_email)){
+            $message = 'Ce email est dejà utilisé par un de nos utilisateur.';
+        }elseif(isset($same_username) && !empty($same_username)){
+            $message ='Ce nom d\'utilisateur est dejà utilisé par un de nos utilisateur.';
         }else{
-            if(preg_match("#jpeg|png|jpg#",$_FILES['photo_profil']['type'])){
-                $path = "img/photo_profil";
-                move_uploaded_file($_FILES['photo_profil']['tmp_name'],$path.$_FILES['photo_profil']['tmp_name']);
+            include_once "includes/token.php";
+            $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+            $requete = $BDDpdo->prepare('INSERT INTO utilisateurs(nom_utilisateur, prenom_utilisateur, username, email_utilisateur,
+            password_utilisateur, token_utilisateur, photo_utilisateur) VALUES (:nom, :prenom, :username, :email, :password, :token, :photo_profil)');
+            $requete->bindvalue(':nom', $_POST['nom']);
+            $requete->bindvalue('prenom', $_POST['prenom']);
+            $requete->bindvalue('username', $_POST['username']);
+            $requete->bindvalue('email', $_POST['email']);
+            $requete->bindvalue('password', $password);
+            $requete->bindvalue('token', $token);
+            
+            if(empty($_FILES['photo_profil']['name'])){
+                $photo_profil = 'avata_default.png';
+                $requete->bindvalue(':photo_profil', $photo_profil);
             }else{
-                $message = 'la photo doit etre de type jpg, jpeg, png';
+                if(preg_match("#jpeg|png|jpg#",$_FILES['photo_profil']['type'])){
+                    $path = "img/photo_profil";
+                    move_uploaded_file($_FILES['photo_profil']['tmp_name'],$path.$_FILES['photo_profil']['tmp_name']);
+                }else{
+                    $message = 'la photo doit etre de type jpg, jpeg, png';
+                }
+                $requete->bindvalue(':photo_profil', $_POST['photo_profil']['name']);
             }
-            $requete->bindvalue(':photo_profil', $_POST['photo_profil']['name']);
+            try{
+                $requete->execute();
+                $message = 'Compte créec avec succes.';
+            }catch(Exeption $e ){
+                echo $e->getMessage();
+            }
         }
-        $requete->execute();
+       
+        
     }
 }
 
@@ -54,7 +80,8 @@ if(isset($_POST['inscription'])){
                                             echo $message;
                                         }
                                         ?>
-                                        <h3 class="text-center font-weight-light my-4">Créer un compte</h3></div>
+                                        <h3 class="text-center font-weight-light my-4">Créer un compte</h3>
+                                    </div>
                                     <div class="card-body">
                                         <form action="register.php"  method = "post" enctype="multipart/form-data">
                                             <div class="row mb-3">

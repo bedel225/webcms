@@ -1,9 +1,6 @@
 <?php require_once "includes/header.php"; ?>
 
-
-
 <!--navigation-->
-
 
 <?php require_once "includes/navigation.php"; ?>
 
