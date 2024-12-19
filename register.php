@@ -57,6 +57,9 @@ if(isset($_POST['inscription'])){
             try{
                 $requete->execute();
                 $message = 'Compte créec avec succes.';
+                require "includes/PHPMailer/sendmail.php";
+                $subject = 'Confirmation d\'email';
+                sendmail($_POST['email'], $subject, $token, $_POST['username']);
             }catch(Exeption $e ){
                 echo $e->getMessage();
             }
