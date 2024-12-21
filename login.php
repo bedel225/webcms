@@ -2,9 +2,9 @@
 
 if(isset($_POST['connexion'])){
     $email = $_POST['email'];
-    $password = $_POST['password'];
+    $current_password = $_POST['password']; 
     //verifacation de saisie de tous les champs
-    if( empty($email) || empty($password) ){
+    if( empty($email) || empty($current_password) ){
         $message = 'Veuillez remplir tous les champs.';
     }else{
         //verifaction du mail en base de données 
@@ -28,21 +28,34 @@ if(isset($_POST['connexion'])){
 
             sendmail($email, $subject, $token, 'username');
 
-            $message = 'Veuillez confirmez votre adresse email en cliquant sur le lien que vous vener de recevoir.';
+            $message = 'Veuillez confirmez votre adresse email en cliquant sur le lien que vous venez de recevoir à l\'adreese email '.$email;
         }else{
 
-            $isValide = password_verify($password, $result['password_utilisateur']);
+            $isValide = password_verify($current_password, $result['password_utilisateur']);
             if($isValide){
+
                 session_start();
                 $message ='vous etes connecté.';
 
-                $_SESSION['email'] = $email;
-                $_SESSION['token'] = $result['token_utilisateur'];
-                
-                header('Location: indexe.php');
-
-
-                
+                $_SESSION['id_ytilisateur'] = $result['id_utilisateur'];
+                $_SESSION['username'] = $result['username'];
+                $_SESSION['email_utilisateur'] = $resul['email_utilisateur'] ;
+                $_SESSION['role_utilisateur'] = $resul['role_utilisateur'] ;
+    
+                if(isset($_POST['sesouvenir'])){
+                    setcookie('email', $_POST['email'], time()+3600*24*365);
+                    setcookie('password', $_POST['password'], time()+3600*24*365);
+                }else{
+                    if(isset($_COOKIE['email'])){
+                        setcookie($_COOKIE['email'],"");
+                    }
+                    if(isset($_COOKIE['password'])){
+                        setcookie($_COOKIE['password'],"");
+                    }
+                }
+                header('location:index.php');
+            }else{
+            $message = 'mot de passe non valide, veuillez saisi le bon mot de passe.';
             }
         }
 
@@ -68,11 +81,11 @@ if(isset($_POST['connexion'])){
                                     <div class="card-body">
                                         <form action="login.php" method="post" >
                                             <div class="form-floating mb-3">
-                                                <input class="form-control" id="inputEmail" type="email" name="email" />
+                                                <input class="form-control" id="inputEmail" type="email" name="email" value = <?php if(isset($_COOKIE['email'])){echo $_COOKIE['email'] ;}?>  />
                                                 <label for="inputEmail">Adresse email</label>
                                             </div>
                                             <div class="form-floating mb-3">
-                                                <input class="form-control" id="inputPassword" type="password" name="password" />
+                                                <input class="form-control" id="inputPassword" type="password" name="password" value = <?php if(isset($_COOKIE['password'])) echo $_COOKIE['password'] ; ?> />
                                                 <label for="inputPassword">Mot de passe</label>
                                             </div>
                                             <div class="form-check mb-3">

@@ -1,5 +1,4 @@
 <?php require_once "includes/header_register.php"; 
-
 if(isset($_POST['inscription'])){
     if(empty($_POST['prenom']) || !ctype_alpha($_POST['prenom']) ) {
         $message = 'votre prenom doit être une chaine de caractere alphabetique!';   
@@ -14,7 +13,6 @@ if(isset($_POST['inscription'])){
     }else{
         require_once "includes/bdd.php";
 
-
         $requete_verification_email = $BDDpdo->prepare('SELECT * FROM utilisateurs WHERE email_utilisateur = :email');
         $requete_verification_email->bindvalue('email', $_POST['email']);
         $requete_verification_email->execute();
@@ -25,7 +23,6 @@ if(isset($_POST['inscription'])){
         $requete_verification_username->execute();
         $same_username = $requete_verification_username->fetch();
        
-
         if(isset($same_email) && !empty($same_email)){
             $message = 'Ce email est dejà utilisé par un de nos utilisateur.';
         }elseif(isset($same_username) && !empty($same_username)){
@@ -56,16 +53,15 @@ if(isset($_POST['inscription'])){
             }
             try{
                 $requete->execute();
-                $message = 'Compte créec avec succes.';
                 require "includes/PHPMailer/sendmail.php";
                 $subject = 'Confirmation d\'email';
                 sendmail($_POST['email'], $subject, $token, $_POST['username']);
+                $message = 'Compte créec avec succes.';
+
             }catch(Exeption $e ){
                 echo $e->getMessage();
             }
-        }
-       
-        
+        }   
     }
 }
 
@@ -148,9 +144,6 @@ if(isset($_POST['inscription'])){
                     </div>
                 </main>
             </div>
-
-
-
 
             <?php require_once "includes/footer.php"; ?>
 
