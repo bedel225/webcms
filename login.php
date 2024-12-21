@@ -80,6 +80,7 @@ if(isset($_POST['connexion'])){
                                     <h3 class="text-center font-weight-light my-4">Connexion</h3></div>
                                     <div class="card-body">
                                         <form action="login.php" method="post" >
+                                        <form action="login.php" method="post" >
                                             <div class="form-floating mb-3">
                                                 <input class="form-control" id="inputEmail" type="email" name="email" value = <?php if(isset($_COOKIE['email'])){echo $_COOKIE['email'] ;}?>  />
                                                 <label for="inputEmail">Adresse email</label>
@@ -101,6 +102,7 @@ if(isset($_POST['connexion'])){
                                     </div>
                                     <div class="card-footer text-center py-3">
                                         <div class="small"><a href="register.html">Besoin d'un compte? S'enregistrer!</a></div>
+                                        <div class="small"><a href="register.html">Besoin d'un compte? S'enregistrer!</a></div>
                                     </div>
                                 </div>
                             </div>
@@ -109,4 +111,5 @@ if(isset($_POST['connexion'])){
                 </main>
             </div>
             <div id="layoutAuthentication_footer">
+            <?php include "includes/footer.php"; ?>
             <?php include "includes/footer.php"; ?>
